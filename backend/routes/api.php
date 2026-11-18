@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\DashboardController;
 use App\Http\Controllers\Api\EmployeeController;
 use Illuminate\Support\Facades\Route;
 
@@ -25,4 +26,12 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/employees/{id}', [EmployeeController::class, 'show']);
     Route::put('/employees/{id}', [EmployeeController::class, 'update']);
     Route::delete('/employees/{id}', [EmployeeController::class, 'destroy']);
+
+    // Dashboard Analytics
+    Route::prefix('dashboard')->group(function () {
+        Route::get('/statistics', [DashboardController::class, 'statistics']);
+        Route::get('/gender', [DashboardController::class, 'gender']);
+        Route::get('/education', [DashboardController::class, 'education']);
+        Route::get('/age', [DashboardController::class, 'age']);
+    });
 });
