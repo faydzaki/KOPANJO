@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { Toaster } from "sonner";
+import { AuthProvider } from "@/providers/auth-provider";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -32,10 +33,12 @@ export default function RootLayout({
           <div className="ambient-glow-2" />
         </div>
 
-        {/* App Content */}
-        <div className="relative z-10 flex min-h-screen flex-col">
-          {children}
-        </div>
+        {/* App Content with Auth Provider */}
+        <AuthProvider>
+          <div className="relative z-10 flex min-h-screen flex-col">
+            {children}
+          </div>
+        </AuthProvider>
 
         {/* Notification Toaster */}
         <Toaster

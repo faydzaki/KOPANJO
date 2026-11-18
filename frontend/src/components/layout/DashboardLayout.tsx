@@ -1,0 +1,78 @@
+"use client";
+
+import * as React from "react";
+import { useAuth } from "@/providers/auth-provider";
+import { useRouter } from "next/navigation";
+import { Sidebar } from "./Sidebar";
+import { cn } from "@/lib/utils";
+import { Loader2, Sparkles } from "lucide-react";
+
+export function DashboardLayout({ children }: { children: React.ReactNode }) {
+  const { isAuthenticated, isLoading } = useAuth();
+  const router = useRouter();
+
+  const [collapsed, setCollapsed] = React.useState<boolean>(false);
+  const [isMobileOpen, setIsMobileOpen] = React.useState<boolean>(false);
+
+  // Authentication check
+  React.useEffect(() => {
+    if (!isLoading && !isAuthenticated) {
+      router.replace("/login");
+    }
+  }, [isLoading, isAuthenticated, router]);
+
+  // Loading Screen while verifying session
+  if (isLoading) {
+    return (
+      <div className="min-h-screen flex flex-col items-center justify-center p-4">
+        <div className="flex flex-col items-center gap-4 p-8 rounded-3xl glass-card border border-white/10 shadow-2xl">
+          <div className="relative flex items-center justify-center w-14 h-14 rounded-2xl bg-gradient-to-tr from-blue-600 to-violet-600 shadow-xl shadow-blue-500/30 animate-pulse">
+            <Sparkles className="w-7 h-7 text-white" />
+          </div>
+          <div className="text-center space-y-1">
+            <h2 className="text-lg font-bold text-white tracking-wide">KOPANJO</h2>
+            <p className="text-xs text-slate-400">Memverifikasi sesi autentikasi...</p>
+          </div>
+          <Loader2 className="w-5 h-5 text-blue-400 animate-spin mt-2" />
+        </div>
+      </div>
+    );
+  }
+
+  // Not authenticated will redirect, don't render layout content
+  if (!isAuthenticated) {
+    return null;
+  }
+
+  return (
+    <div className="min-h-screen flex flex-col">
+      {/* Floating Sidebar */}
+      <Sidebar
+        isMobileOpen={isMobileOpen}
+        onMobileClose={() => setIsMobileOpen(false)}
+        collapsed={collapsed}
+        onToggleCollapse={() => setCollapsed(!collapsed)}
+      />
+
+      {/* Main Content Area */}
+      <main
+        className={cn(
+          "flex-1 flex flex-col min-w-0 transition-all duration-300 ease-out",
+          "p-4 lg:py-4 lg:pr-6",
+          collapsed ? "lg:pl-28" : "lg:pl-72"
+        )}
+      >
+        {/* Pass down mobile toggle to children via context or cloned element if needed */}
+        {React.Children.map(children, (child) => {
+          if (React.isValidElement(child)) {
+            // @ts-expect-error pass open mobile menu
+            return React.cloneElement(child, {
+              onOpenMobileMenu: () => setIsMobileOpen(true),
+            });
+          }
+          return child;
+        })}
+      </main>
+    </div>
+  );
+}
