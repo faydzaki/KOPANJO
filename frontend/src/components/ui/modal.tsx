@@ -48,14 +48,14 @@ export function Modal({
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
       {/* Backdrop */}
       <div
-        className="fixed inset-0 bg-black/60 backdrop-blur-md transition-opacity animate-in fade-in duration-200"
+        className="fixed inset-0 bg-black/60 backdrop-blur-md transition-opacity duration-200"
         onClick={onClose}
       />
 
       {/* Modal Dialog */}
       <div
         className={cn(
-          "relative w-full glass-panel rounded-2xl p-6 shadow-2xl border border-white/15 z-10 animate-in zoom-in-95 duration-200",
+          "relative w-full glass-panel rounded-2xl p-6 shadow-2xl border border-white/15 z-10 transition-all duration-200",
           maxWidthStyles[maxWidth]
         )}
       >

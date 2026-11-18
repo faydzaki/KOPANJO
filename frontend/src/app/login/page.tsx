@@ -58,7 +58,7 @@ export default function LoginPage() {
       <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-violet-600/15 rounded-full filter blur-[120px] pointer-events-none" />
 
       {/* Main Login Card */}
-      <div className="relative w-full max-w-md glass-panel rounded-3xl p-8 sm:p-10 border border-white/15 shadow-2xl backdrop-blur-2xl animate-in fade-in zoom-in-95 duration-500">
+      <div className="relative w-full max-w-md glass-panel rounded-3xl p-8 sm:p-10 border border-white/15 shadow-2xl backdrop-blur-2xl transition-all duration-300">
         {/* Glow Border Effect */}
         <div className="absolute -inset-0.5 rounded-3xl bg-gradient-to-r from-blue-500/20 via-indigo-500/10 to-violet-500/20 -z-10 blur-sm pointer-events-none" />
 
@@ -104,7 +104,7 @@ export default function LoginPage() {
 
         {/* Error Alert if any */}
         {errorMessage && (
-          <div className="mb-5 p-3 rounded-xl bg-rose-500/15 border border-rose-500/30 text-xs text-rose-300 font-medium animate-in shake">
+          <div className="mb-5 p-3 rounded-xl bg-rose-500/15 border border-rose-500/30 text-xs text-rose-300 font-medium transition-all duration-200">
             {errorMessage}
           </div>
         )}

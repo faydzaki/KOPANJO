@@ -32,8 +32,8 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
     }
   }, [isLoading, isAuthenticated, router]);
 
-  // Loading Screen while verifying session
-  if (isLoading) {
+  // Loading or redirecting Screen while verifying session
+  if (isLoading || !isAuthenticated) {
     return (
       <div className="min-h-screen flex flex-col items-center justify-center p-4">
         <div className="flex flex-col items-center gap-4 p-8 rounded-3xl glass-card border border-white/10 shadow-2xl">
@@ -47,17 +47,14 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
           />
           <div className="text-center space-y-1">
             <h2 className="text-lg font-bold text-white tracking-wide">KOPANJO</h2>
-            <p className="text-xs text-slate-400">Memverifikasi sesi autentikasi...</p>
+            <p className="text-xs text-slate-400">
+              {isLoading ? "Memverifikasi sesi autentikasi..." : "Mengarahkan ke halaman login..."}
+            </p>
           </div>
           <Loader2 className="w-5 h-5 text-blue-400 animate-spin mt-2" />
         </div>
       </div>
     );
-  }
-
-  // Not authenticated will redirect, don't render layout content
-  if (!isAuthenticated) {
-    return null;
   }
 
   return (
