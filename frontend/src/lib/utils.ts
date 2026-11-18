@@ -35,3 +35,4 @@ export function calculateAge(birthDateString: string | null | undefined): number
     return "-";
   }
 }
+

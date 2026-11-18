@@ -7,6 +7,16 @@ import { Sidebar } from "./Sidebar";
 import { cn } from "@/lib/utils";
 import { Loader2, Sparkles } from "lucide-react";
 
+interface LayoutContextType {
+  onOpenMobileMenu: () => void;
+}
+
+const LayoutContext = React.createContext<LayoutContextType>({
+  onOpenMobileMenu: () => {},
+});
+
+export const useLayout = () => React.useContext(LayoutContext);
+
 export function DashboardLayout({ children }: { children: React.ReactNode }) {
   const { isAuthenticated, isLoading } = useAuth();
   const router = useRouter();
@@ -45,34 +55,27 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
   }
 
   return (
-    <div className="min-h-screen flex flex-col">
-      {/* Floating Sidebar */}
-      <Sidebar
-        isMobileOpen={isMobileOpen}
-        onMobileClose={() => setIsMobileOpen(false)}
-        collapsed={collapsed}
-        onToggleCollapse={() => setCollapsed(!collapsed)}
-      />
+    <LayoutContext.Provider value={{ onOpenMobileMenu: () => setIsMobileOpen(true) }}>
+      <div className="min-h-screen flex flex-col">
+        {/* Floating Sidebar */}
+        <Sidebar
+          isMobileOpen={isMobileOpen}
+          onMobileClose={() => setIsMobileOpen(false)}
+          collapsed={collapsed}
+          onToggleCollapse={() => setCollapsed(!collapsed)}
+        />
 
-      {/* Main Content Area */}
-      <main
-        className={cn(
-          "flex-1 flex flex-col min-w-0 transition-all duration-300 ease-out",
-          "p-4 lg:py-4 lg:pr-6",
-          collapsed ? "lg:pl-28" : "lg:pl-72"
-        )}
-      >
-        {/* Pass down mobile toggle to children via context or cloned element if needed */}
-        {React.Children.map(children, (child) => {
-          if (React.isValidElement(child)) {
-            // @ts-expect-error pass open mobile menu
-            return React.cloneElement(child, {
-              onOpenMobileMenu: () => setIsMobileOpen(true),
-            });
-          }
-          return child;
-        })}
-      </main>
-    </div>
+        {/* Main Content Area */}
+        <main
+          className={cn(
+            "flex-1 flex flex-col min-w-0 transition-all duration-300 ease-out",
+            "p-4 lg:py-4 lg:pr-6",
+            collapsed ? "lg:pl-28" : "lg:pl-72"
+          )}
+        >
+          {children}
+        </main>
+      </div>
+    </LayoutContext.Provider>
   );
 }

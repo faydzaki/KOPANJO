@@ -2,17 +2,20 @@
 
 import * as React from "react";
 import { useAuth } from "@/providers/auth-provider";
+import { useLayout } from "./DashboardLayout";
 import { Menu, Calendar, ShieldCheck } from "lucide-react";
 
 interface TopbarProps {
   title: string;
   subtitle?: string;
-  onOpenMobileMenu: () => void;
+  onOpenMobileMenu?: () => void;
   actions?: React.ReactNode;
 }
 
 export function Topbar({ title, subtitle, onOpenMobileMenu, actions }: TopbarProps) {
   const { user } = useAuth();
+  const layout = useLayout();
+  const handleOpenMenu = onOpenMobileMenu || layout.onOpenMobileMenu;
   const [currentDate] = React.useState<string>(() => {
     const now = new Date();
     return new Intl.DateTimeFormat("id-ID", {
@@ -29,7 +32,7 @@ export function Topbar({ title, subtitle, onOpenMobileMenu, actions }: TopbarPro
         {/* Left Side: Mobile Menu Button & Page Title */}
         <div className="flex items-center gap-3 min-w-0">
           <button
-            onClick={onOpenMobileMenu}
+            onClick={handleOpenMenu}
             className="lg:hidden p-2 rounded-xl text-slate-300 hover:text-white hover:bg-white/10 transition-colors cursor-pointer"
             aria-label="Buka Menu"
           >

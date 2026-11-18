@@ -77,3 +77,4 @@ export function AgeBarChart({ data, isLoading }: AgeBarChartProps) {
     </div>
   );
 }
+

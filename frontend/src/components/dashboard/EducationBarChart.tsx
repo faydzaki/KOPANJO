@@ -76,3 +76,4 @@ export function EducationBarChart({ data, isLoading }: EducationBarChartProps) {
     </div>
   );
 }
+

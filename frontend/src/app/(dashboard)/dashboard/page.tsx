@@ -32,11 +32,7 @@ import {
 } from "lucide-react";
 import { toast } from "sonner";
 
-interface DashboardPageProps {
-  onOpenMobileMenu?: () => void;
-}
-
-export default function DashboardPage({ onOpenMobileMenu = () => {} }: DashboardPageProps) {
+export default function DashboardPage() {
   const { user } = useAuth();
 
   const [stats, setStats] = React.useState<DashboardStatistics | null>(null);
@@ -86,7 +82,6 @@ export default function DashboardPage({ onOpenMobileMenu = () => {} }: Dashboard
       <Topbar
         title="Dashboard Overview"
         subtitle="Analisis dan statistik komprehensif data pegawai organisasi"
-        onOpenMobileMenu={onOpenMobileMenu}
         actions={
           <Link href="/employees/create">
             <Button size="sm" variant="primary" className="gap-1.5 shadow-md shadow-blue-500/20">
@@ -253,3 +248,4 @@ export default function DashboardPage({ onOpenMobileMenu = () => {} }: Dashboard
     </div>
   );
 }
+

@@ -47,3 +47,4 @@ export function clearAuth(): void {
   removeToken();
   removeUser();
 }
+

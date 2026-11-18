@@ -1,18 +1,7 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
 import { Toaster } from "sonner";
 import { AuthProvider } from "@/providers/auth-provider";
 import "./globals.css";
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
 
 export const metadata: Metadata = {
   title: "KOPANJO — Employee Management System",
@@ -25,7 +14,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="id" className={`${geistSans.variable} ${geistMono.variable} dark antialiased`}>
+    <html lang="id" className="dark antialiased">
       <body className="min-h-screen bg-[#0B1020] text-slate-100 selection:bg-blue-500/30 selection:text-white relative font-sans">
         {/* Futuristic Ambient Glow Background */}
         <div className="ambient-bg">

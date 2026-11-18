@@ -99,3 +99,4 @@ export function GenderDonutChart({ data, total, isLoading }: GenderDonutChartPro
     </div>
   );
 }
+

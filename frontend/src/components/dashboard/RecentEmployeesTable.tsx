@@ -96,3 +96,4 @@ export function RecentEmployeesTable({ employees, isLoading }: RecentEmployeesTa
     </div>
   );
 }
+
