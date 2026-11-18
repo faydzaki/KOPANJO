@@ -1,66 +1,267 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# KOPANJO Backend (Laravel 12 RESTful API)
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+**KOPANJO (Kolaborasi Pengelolaan Administrasi dan Organisasi)** adalah Employee Management System berbasis web yang dirancang untuk membantu organisasi dan perusahaan mengelola data pegawai, menyajikan data analitik demografis dan statistik kepegawaian secara real-time, serta terintegrasi penuh via REST API.
 
-## About Laravel
+---
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## 🛠️ Technology Stack
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+- **Framework**: Laravel 12.x
+- **Bahasa**: PHP 8.2+ (Teruji pada PHP 8.4)
+- **Database**: MySQL 8.0+
+- **Autentikasi**: Laravel Sanctum (Bearer Token)
+- **Validasi**: Laravel Form Request
+- **Serialisasi**: Laravel API Resources
+- **Testing**: PHPUnit / Laravel Feature Testing
+- **API Documentation**: Postman Collection v2.1.0
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+---
 
-## Learning Laravel
+## 📂 Backend Architecture
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+```
+backend/
+├── app/
+│   ├── Http/
+│   │   ├── Controllers/
+│   │   │   └── Api/
+│   │   │       ├── AuthController.php        # Otentikasi Sanctum (Login, Me, Logout)
+│   │   │       ├── EmployeeController.php    # CRUD, Search, Filter, Sort, Pagination
+│   │   │       └── DashboardController.php   # Agregasi Dashboard Real-time
+│   │   ├── Requests/
+│   │   │   ├── LoginRequest.php              # Validasi Kredensial Admin
+│   │   │   ├── StoreEmployeeRequest.php      # Validasi Penambahan Pegawai
+│   │   │   └── UpdateEmployeeRequest.php     # Validasi Pembaruan Pegawai
+│   │   └── Resources/
+│   │       ├── EmployeeResource.php          # Serialisasi Data Pegawai
+│   │       └── UserResource.php              # Serialisasi Data Admin
+│   ├── Models/
+│   │   ├── User.php                          # Model Admin (HasApiTokens)
+│   │   └── Employee.php                      # Model Pegawai & Date Casting
+│   └── Services/
+│       └── DashboardService.php              # Logika Agregasi SQL Statistik & Demografi
+├── config/
+│   ├── cors.php                              # Konfigurasi CORS untuk Next.js
+│   └── sanctum.php                           # Konfigurasi Token Sanctum
+├── database/
+│   ├── factories/
+│   │   └── EmployeeFactory.php               # Generator Dummy Pegawai Realistis
+│   ├── migrations/
+│   │   ├── ..._create_users_table.php
+│   │   ├── ..._create_personal_access_tokens_table.php
+│   │   └── ..._create_employees_table.php
+│   └── seeders/
+│       ├── DatabaseSeeder.php
+│       ├── UserSeeder.php                    # Demo Admin Seeder
+│       └── EmployeeSeeder.php                # 35 Data Pegawai Berbagai Kategori
+├── postman/
+│   ├── KOPANJO_API.postman_collection.json   # Postman Collection v2.1
+│   └── KOPANJO_Environment.postman_environment.json
+├── routes/
+│   └── api.php                               # Definisi Rute RESTful API
+└── tests/
+    └── Feature/
+        ├── AuthTest.php                      # 6 Test Autentikasi
+        ├── EmployeeTest.php                  # 11 Test CRUD Pegawai
+        └── DashboardTest.php                 # 6 Test Dashboard Analytics
+```
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+---
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## ⚙️ Persyaratan Sistem
 
-## Laravel Sponsors
+- PHP >= 8.2 (ekstensi aktif: `pdo_mysql`, `mbstring`, `openssl`, `curl`, `json`)
+- Composer >= 2.0
+- MySQL Server >= 8.0
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+---
 
-### Premium Partners
+## 🚀 Panduan Instalasi & Setup
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+### 1. Masuk ke direktori backend
+```bash
+cd backend
+```
 
-## Contributing
+### 2. Instal dependensi Composer (jika belum)
+```bash
+composer install
+```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+### 3. Salin dan sesuaikan Environment Variables
+```bash
+cp .env.example .env
+php artisan key:generate
+```
 
-## Code of Conduct
+Pastikan variabel database pada `.env` telah disesuaikan:
+```env
+APP_NAME=KOPANJO
+APP_ENV=local
+APP_KEY=base64:...
+APP_DEBUG=true
+APP_URL=http://localhost:8000
+FRONTEND_URL=http://localhost:3000
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=kopanjo_db
+DB_USERNAME=root
+DB_PASSWORD=
+```
 
-## Security Vulnerabilities
+### 4. Buat Database MySQL
+```sql
+CREATE DATABASE IF NOT EXISTS kopanjo_db CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+### 5. Jalankan Migration dan Seeder
+```bash
+php artisan migrate:fresh --seed
+```
 
-## License
+Command di atas akan:
+- Membuat tabel `users`, `personal_access_tokens`, dan `employees`.
+- Mengisi akun admin demo.
+- Mengisi 35 data pegawai dengan distribusi realistis (gender, pendidikan, rentang usia 20–60 tahun, dan berbagai jabatan).
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+### 6. Jalankan Server Development
+```bash
+php artisan serve
+```
+Server backend akan berjalan di `http://127.0.0.1:8000`.
+
+---
+
+## 🔑 Kredensial Demo Admin
+
+- **Email**: `admin@kopanjo.test`
+- **Password**: `admin123`
+
+---
+
+## 📡 Daftar Endpoint API
+
+### Standard Response Format
+
+**Success Response (200 / 201):**
+```json
+{
+  "success": true,
+  "message": "Pesan keberhasilan",
+  "data": {}
+}
+```
+
+**Error / Validation Response (401 / 404 / 422):**
+```json
+{
+  "success": false,
+  "message": "Pesan kesalahan",
+  "errors": {}
+}
+```
+
+---
+
+### 1. Autentikasi (Sanctum)
+
+| Method | Endpoint | Auth | Deskripsi |
+|---|---|---|---|
+| `POST` | `/api/login` | Publik | Login admin, mengembalikan Bearer Token |
+| `GET` | `/api/me` | Bearer Token | Mengambil detail profil admin aktif |
+| `POST` | `/api/logout` | Bearer Token | Menghapus token aktif (logout) |
+
+#### Contoh Request Login:
+```json
+POST /api/login
+Content-Type: application/json
+
+{
+  "email": "admin@kopanjo.test",
+  "password": "admin123"
+}
+```
+
+---
+
+### 2. Employee Management (CRUD)
+
+| Method | Endpoint | Auth | Deskripsi |
+|---|---|---|---|
+| `GET` | `/api/employees` | Bearer Token | Daftar pegawai (Search, Filter, Sort, Paginate) |
+| `POST` | `/api/employees` | Bearer Token | Tambah pegawai baru |
+| `GET` | `/api/employees/{id}` | Bearer Token | Detail pegawai berdasarkan ID |
+| `PUT` | `/api/employees/{id}` | Bearer Token | Perbarui data pegawai |
+| `DELETE` | `/api/employees/{id}` | Bearer Token | Hapus data pegawai |
+
+#### Query Parameters pada `GET /api/employees`:
+- `page` *(int)*: Nomor halaman (default: `1`).
+- `per_page` *(int)*: Data per halaman (default: `10`, max: `100`).
+- `search` *(string)*: Pencarian nama pegawai atau NIP.
+- `jenis_kelamin` *(string)*: Filter `Laki-laki` atau `Perempuan`.
+- `pendidikan_terakhir` *(string)*: Filter `SMA/SMK`, `D3`, `S1`, `S2`.
+- `jabatan` *(string)*: Filter berdasarkan nama jabatan.
+- `sort_by` *(string)*: Kolom sorting (`nama`, `tanggal_masuk`, `tanggal_lahir`, `nip`, `created_at`, `id`).
+- `sort_order` *(string)*: Urutan (`asc` atau `desc`).
+
+Contoh:
+```
+GET /api/employees?page=1&per_page=10&search=andi&jenis_kelamin=Laki-laki&sort_by=nama&sort_order=asc
+```
+
+---
+
+### 3. Dashboard Analytics
+
+| Method | Endpoint | Auth | Deskripsi |
+|---|---|---|---|
+| `GET` | `/api/dashboard/statistics` | Bearer Token | Total pegawai, total gender, dan pendidikan |
+| `GET` | `/api/dashboard/gender` | Bearer Token | Komposisi gender, jumlah, & persentase |
+| `GET` | `/api/dashboard/education` | Bearer Token | Distribusi tingkat pendidikan pegawai |
+| `GET` | `/api/dashboard/age` | Bearer Token | Distribusi kelompok usia (<25, 25–35, 36–45, 46–55, >55) |
+
+---
+
+## 🧪 Automated Testing
+
+Backend dilengkapi dengan test suite lengkap (25 tests, 232 assertions) mencakup Auth, CRUD Pegawai, dan Dashboard Analytics.
+
+Jalankan seluruh test:
+```bash
+php artisan test
+```
+
+Jalankan test spesifik:
+```bash
+php artisan test --filter=AuthTest
+php artisan test --filter=EmployeeTest
+php artisan test --filter=DashboardTest
+```
+
+---
+
+## 📬 Postman Collection
+
+Collection dan Environment Postman tersedia di direktori `postman/`:
+- `postman/KOPANJO_API.postman_collection.json`
+- `postman/KOPANJO_Environment.postman_environment.json`
+
+**Cara Pakai di Postman:**
+1. Import kedua file di atas ke aplikasi Postman.
+2. Pilih environment **KOPANJO Local Environment**.
+3. Jalankan request **Login Admin** — test script akan secara otomatis menyimpan token baru ke variabel environment `{{token}}`.
+4. Anda dapat langsung menjalankan seluruh request CRUD dan Dashboard tanpa copy-paste token manual.
+
+---
+
+## 🌐 Integrasi dengan Frontend Next.js 15+
+
+1. **CORS**: Sudah dikonfigurasikan di `config/cors.php`. Diatur untuk membaca `FRONTEND_URL` (default: `http://localhost:3000`).
+2. **Bearer Token**: Setiap request dari Next.js ke endpoint yang terproteksi wajib menyertakan header:
+   ```
+   Authorization: Bearer <TOKEN_HASIL_LOGIN>
+   Accept: application/json
+   ```
+3. **Penyimpanan Token di Next.js**: Simpan token pada `httpOnly` cookie atau state client (misalnya Zustand / React Context / NextAuth session) untuk diteruskan ke backend API.
