@@ -6,6 +6,11 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: "KOPANJO — Employee Management System",
   description: "Kolaborasi Pengelolaan Administrasi dan Organisasi",
+  icons: {
+    icon: "/logo1.png",
+    shortcut: "/logo1.png",
+    apple: "/logo1.png",
+  },
 };
 
 export default function RootLayout({

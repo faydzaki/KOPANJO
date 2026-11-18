@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { useAuth } from "@/providers/auth-provider";
@@ -13,7 +14,6 @@ import {
   ChevronLeft,
   ChevronRight,
   ShieldCheck,
-  Sparkles,
   X,
 } from "lucide-react";
 
@@ -89,22 +89,31 @@ export function Sidebar({
         <div className="flex items-center justify-between p-5 pb-4 border-b border-white/10 relative">
           <Link
             href="/dashboard"
-            className={cn("flex items-center gap-3 group transition-opacity", collapsed ? "justify-center w-full" : "")}
+            className={cn("flex items-center group transition-opacity", collapsed ? "justify-center w-full" : "gap-3")}
           >
-            {/* Futuristic Logo Icon */}
-            <div className="relative flex items-center justify-center w-10 h-10 rounded-2xl bg-gradient-to-tr from-blue-600 via-indigo-600 to-violet-500 shadow-lg shadow-blue-500/25 shrink-0 group-hover:scale-105 transition-transform">
-              <Sparkles className="w-5 h-5 text-white" />
-            </div>
-
-            {!collapsed && (
-              <div className="flex flex-col min-w-0">
-                <span className="text-base font-bold text-white tracking-wider flex items-center gap-1.5">
-                  KOPANJO
-                  <span className="w-1.5 h-1.5 rounded-full bg-blue-400 animate-pulse" />
-                </span>
-                <span className="text-[10px] text-slate-400 font-medium tracking-tight truncate">
-                  Employee Management
-                </span>
+            {collapsed ? (
+              /* Compact Emblem when Collapsed */
+              <div className="relative w-10 h-10 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
+                <Image
+                  src="/logo1.png"
+                  alt="KOPANJO"
+                  width={40}
+                  height={40}
+                  priority
+                  className="w-10 h-10 object-contain drop-shadow-[0_0_12px_rgba(79,140,255,0.4)]"
+                />
+              </div>
+            ) : (
+              /* Full Brand Lockup when Expanded */
+              <div className="flex items-center group-hover:scale-105 transition-transform">
+                <Image
+                  src="/logo2.png"
+                  alt="KOPANJO"
+                  width={180}
+                  height={60}
+                  priority
+                  className="h-10 w-auto object-contain drop-shadow-[0_0_15px_rgba(79,140,255,0.3)]"
+                />
               </div>
             )}
           </Link>

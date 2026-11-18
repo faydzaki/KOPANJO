@@ -1,11 +1,12 @@
 "use client";
 
 import * as React from "react";
+import Image from "next/image";
 import { useAuth } from "@/providers/auth-provider";
 import { useRouter } from "next/navigation";
 import { Sidebar } from "./Sidebar";
 import { cn } from "@/lib/utils";
-import { Loader2, Sparkles } from "lucide-react";
+import { Loader2 } from "lucide-react";
 
 interface LayoutContextType {
   onOpenMobileMenu: () => void;
@@ -36,9 +37,14 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
     return (
       <div className="min-h-screen flex flex-col items-center justify-center p-4">
         <div className="flex flex-col items-center gap-4 p-8 rounded-3xl glass-card border border-white/10 shadow-2xl">
-          <div className="relative flex items-center justify-center w-14 h-14 rounded-2xl bg-gradient-to-tr from-blue-600 to-violet-600 shadow-xl shadow-blue-500/30 animate-pulse">
-            <Sparkles className="w-7 h-7 text-white" />
-          </div>
+          <Image
+            src="/logo1.png"
+            alt="KOPANJO"
+            width={64}
+            height={64}
+            priority
+            className="w-16 h-16 object-contain animate-pulse drop-shadow-[0_0_20px_rgba(79,140,255,0.4)]"
+          />
           <div className="text-center space-y-1">
             <h2 className="text-lg font-bold text-white tracking-wide">KOPANJO</h2>
             <p className="text-xs text-slate-400">Memverifikasi sesi autentikasi...</p>

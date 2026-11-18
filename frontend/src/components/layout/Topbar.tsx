@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import Image from "next/image";
 import { useAuth } from "@/providers/auth-provider";
 import { useLayout } from "./DashboardLayout";
 import { Menu, Calendar, ShieldCheck } from "lucide-react";
@@ -38,6 +39,16 @@ export function Topbar({ title, subtitle, onOpenMobileMenu, actions }: TopbarPro
           >
             <Menu className="w-5 h-5" />
           </button>
+
+          <div className="lg:hidden shrink-0">
+            <Image
+              src="/logo1.png"
+              alt="KOPANJO"
+              width={32}
+              height={32}
+              className="w-8 h-8 object-contain drop-shadow-md"
+            />
+          </div>
 
           <div className="flex flex-col min-w-0">
             <h1 className="text-lg md:text-xl font-bold text-white tracking-tight truncate">

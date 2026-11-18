@@ -1,11 +1,12 @@
 "use client";
 
 import * as React from "react";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/providers/auth-provider";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Mail, Lock, Eye, EyeOff, Sparkles, ShieldCheck } from "lucide-react";
+import { Mail, Lock, Eye, EyeOff, ShieldCheck } from "lucide-react";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -63,18 +64,22 @@ export default function LoginPage() {
 
         {/* Brand Logo & Header */}
         <div className="flex flex-col items-center text-center mb-8">
-          <div className="relative flex items-center justify-center w-14 h-14 rounded-2xl bg-gradient-to-tr from-blue-600 via-indigo-600 to-violet-500 shadow-xl shadow-blue-500/30 mb-4 group hover:scale-105 transition-transform duration-300">
-            <Sparkles className="w-7 h-7 text-white" />
+          <div className="relative mb-3 group hover:scale-105 transition-transform duration-300">
+            <Image
+              src="/logo2.png"
+              alt="KOPANJO"
+              width={220}
+              height={73}
+              priority
+              className="h-14 sm:h-16 w-auto object-contain drop-shadow-[0_0_25px_rgba(79,140,255,0.35)]"
+            />
           </div>
 
-          <h1 className="text-2xl font-extrabold text-white tracking-wider flex items-center gap-2">
-            KOPANJO
-          </h1>
-          <p className="text-xs text-blue-400 font-medium tracking-wide uppercase mt-0.5">
+          <p className="text-[11px] text-blue-400 font-medium tracking-wider uppercase mt-1">
             Kolaborasi Pengelolaan Administrasi & Organisasi
           </p>
 
-          <div className="mt-4 space-y-1">
+          <div className="mt-5 space-y-1">
             <h2 className="text-lg font-semibold text-slate-100">Welcome Back</h2>
             <p className="text-xs text-slate-400">
               Sign in to manage your workforce and organization
