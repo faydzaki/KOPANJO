@@ -80,3 +80,4 @@ class StoreEmployeeRequest extends FormRequest
         ], 422));
     }
 }
+

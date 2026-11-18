@@ -38,3 +38,4 @@ php artisan serve
 Admin default:
 - **Email**: `admin@kopanjo.test`
 - **Password**: `admin123`
+

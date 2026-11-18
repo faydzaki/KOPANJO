@@ -251,3 +251,4 @@ class DashboardTest extends TestCase
         $this->getJson('/api/dashboard/age')->assertStatus(401);
     }
 }
+

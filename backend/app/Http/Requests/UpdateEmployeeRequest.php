@@ -86,3 +86,4 @@ class UpdateEmployeeRequest extends FormRequest
         ], 422));
     }
 }
+
